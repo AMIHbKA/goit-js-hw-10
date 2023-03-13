@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "caniuse-lite": "^1.0.30001464",
+    "handlebars": "^4.7.7",
+    "jstransformer-handlebars": "^1.2.0",
     "lodash.debounce": "^4.0.8",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6"
@@ -29,5 +31,6 @@
     "parcel-reporter-clean-dist": "^1.0.4",
     "posthtml-include": "^1.7.4"
   },
+  
   "browserslist": "> 0.5%, last 2 versions, not dead"
 }
