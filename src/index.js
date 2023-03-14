@@ -61,8 +61,13 @@ function rendrerCountry({ flags, name, capital, population, languages }) {
 
 function renderCountries(countries) {
   return countries.map(({ flags, name }) => {
-    const el = `<li class="country-list__item"><div class="country-container"><img class="country-info__flag flags--small" src="${flags.svg}" alt="${flags.alt}" />
-  <h2 class="country-info__title">${name.official}</h2></div></li>
+    const el = `
+    <li class="country-list__item">
+      <div class="country-container">
+        <img class="country-info__flag flags--small" src="${flags.svg}" alt="${flags.alt}" />
+        <h2 class="country-info__title">${name.official}</h2>
+      </div>
+    </li>
   `;
 
     refs.countryList.insertAdjacentHTML('beforeend', el);
