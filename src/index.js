@@ -30,6 +30,7 @@ refs.input.addEventListener(
         }
       })
       .catch(error => {
+        resetRenderCountries();
         Notify.failure(error.message);
       });
   }, DEBOUNCE_DELAY)
