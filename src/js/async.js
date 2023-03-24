@@ -10,9 +10,9 @@ const refs = {
 };
 
 async function fetchAsyncCountries(name) {
+  resetRenderCountries();
   const API_URL = 'https://restcountries.com/v3.1/name/';
   try {
-    resetRenderCountries();
     const response = await fetch(
       `${API_URL}${name}?fields=name,capital,population,languages,flags`
     );
@@ -27,19 +27,17 @@ async function fetchAsyncCountries(name) {
 
     if (data.length > 10) {
       Notify.info('Too many matches found. Please enter a more specific name.');
-      // return;
     } else if (data.length > 1) {
       renderCountries(data);
-      // return;
     } else if (data.length === 1) {
-      rendrerCountry(data[0]);
+      renderCountry(data[0]);
     }
   } catch (error) {
     Notify.failure(error.message);
   }
 }
 
-function rendrerCountry({ flags, name, capital, population, languages }) {
+function renderCountry({ flags, name, capital, population, languages }) {
   const lngs = Object.values(languages).join(', ');
   const el = `
   <div class="country-container">
@@ -64,8 +62,8 @@ function rendrerCountry({ flags, name, capital, population, languages }) {
 }
 
 function renderCountries(countries) {
-  return countries.map(({ flags, name }) => {
-    const el = `
+  const elements = countries.map(({ flags, name }) => {
+    return `
     <li class="country-list__item">
       <div class="country-container">
         <img class="country-info__flag flags--small" src="${flags.svg}" alt="${flags.alt}" />
@@ -73,17 +71,20 @@ function renderCountries(countries) {
       </div>
     </li>
   `;
-
-    refs.countryList.insertAdjacentHTML('beforeend', el);
   });
+
+  refs.countryList.innerHTML = elements.join('');
 }
 
 function resetRenderCountries() {
-  refs.countryInfo.innerHTML = '';
-  refs.countryList.innerHTML = '';
+  refs.countryInfo.innerHTML = refs.countryList.innerHTML = '';
+}
+
+function handleSearchInput(e) {
+  fetchAsyncCountries(e.target.value.trim());
 }
 
 refs.input.addEventListener(
   'input',
-  Debounce(e => fetchAsyncCountries(e.target.value.trim()), DEBOUNCE_DELAY)
+  Debounce(e => handleSearchInput(e), DEBOUNCE_DELAY)
 );

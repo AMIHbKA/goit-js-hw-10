@@ -61,8 +61,8 @@ function rendrerCountry({ flags, name, capital, population, languages }) {
 }
 
 function renderCountries(countries) {
-  return countries.map(({ flags, name }) => {
-    const el = `
+  const elements = countries.map(({ flags, name }) => {
+    return `
     <li class="country-list__item">
       <div class="country-container">
         <img class="country-info__flag flags--small" src="${flags.svg}" alt="${flags.alt}" />
@@ -70,10 +70,7 @@ function renderCountries(countries) {
       </div>
     </li>
   `;
-
-    refs.countryList.insertAdjacentHTML('beforeend', el);
   });
-}
 
 function resetRenderCountries() {
   refs.countryInfo.innerHTML = '';
